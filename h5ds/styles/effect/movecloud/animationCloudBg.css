@@ -1,0 +1,21 @@
+.m-animationCloudBg{height:100%;position:relative;top:0;bottom:0;left:0;right:0;z-index:0;overflow:hidden}
+.m-animationCloudBg i{width:640px;height:300px;display:block;position:absolute;opacity:0;z-index:0!important}
+.m-animationCloudBg i:nth-child(1){background:url(images/cloud1.png);top:50px;left:-100px;-webkit-animation:animationCloudBg 1s linear infinite;-webkit-animation-delay:2s}
+.m-animationCloudBg i:nth-child(2){background:url(images/cloud2.png);top:100px;left:-50px;-webkit-animation:animationCloudBg 2s linear infinite;-webkit-animation-delay:1s}
+.m-animationCloudBg i:nth-child(3){background:url(images/cloud3.png);top:150px;left:-0px;-webkit-animation:animationCloudBg 4s linear infinite;-webkit-animation-delay:0s}
+.m-animationCloudBg i:nth-child(4){background:url(images/cloud4.png);top:200px;left:50px;-webkit-animation:animationCloudBg 2s linear infinite;-webkit-animation-delay:2s}
+.m-animationCloudBg i:nth-child(5){background:url(images/cloud5.png);top:250px;left:-50px;-webkit-animation:animationCloudBg 1.2s linear infinite;-webkit-animation-delay:3s}
+.m-animationCloudBg i:nth-child(6){background:url(images/cloud6.png);top:300px;left:20px;-webkit-animation:animationCloudBg 3s linear infinite;-webkit-animation-delay:1s}
+.m-animationCloudBg i:nth-child(7){background:url(images/cloud1.png);top:350px;left:80px;-webkit-animation:animationCloudBg 4.5s linear infinite;-webkit-animation-delay:0s}
+.m-animationCloudBg i:nth-child(8){background:url(images/cloud2.png);top:400px;left:-10px;-webkit-animation:animationCloudBg 2.8s linear infinite;-webkit-animation-delay:1s}
+.m-animationCloudBg i:nth-child(9){background:url(images/cloud3.png);top:350px;left:80px;-webkit-animation:animationCloudBg 1.6s linear infinite;-webkit-animation-delay:2s}
+.m-animationCloudBg i:nth-child(10){background:url(images/cloud4.png);top:20px;left:-100px;-webkit-animation:animationCloudBg 4s linear infinite;-webkit-animation-delay:1s}
+.m-animationCloudBg i:nth-child(11){background:url(images/cloud5.png);top:60px;left:0;-webkit-animation:animationCloudBg 2.5s linear infinite;-webkit-animation-delay:2s}
+.m-animationCloudBg i:nth-child(12){background:url(images/cloud6.png);top:0;left:-50px;-webkit-animation:animationCloudBg 3.2s linear infinite;-webkit-animation-delay:0s}
+
+@-webkit-keyframes animationCloudBg{
+	0%{-webkit-transform:scale(0.5) translate(-300px,300px) rotateX(0deg) rotateY(0deg);opacity:0}
+	33%{-webkit-transform:scale(1) translate(-80px,80px) rotateX(20deg) rotateY(-20deg);opacity:1}
+	66%{-webkit-transform:scale(1.5) translate(100px,-100px) rotateX(30deg) rotateY(-10deg);opacity:.8}
+	100%{-webkit-transform:scale(1.8) translate(300px,-300px) rotateX(0deg) rotateY(0deg);opacity:.6}
+}

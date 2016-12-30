@@ -1,0 +1,1205 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="renderer" content="webkit"/>
+<title>H5DS - HTML5 在线编辑器</title>
+<link rel="stylesheet" type="text/css" href="/member/publicStatic/h5ds/styles/style.css"/>
+<link rel="stylesheet" type="text/css" href="/member/publicStatic/h5ds/styles/font-awesome-4.6.3/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1449422923_7134402.css"/>
+<link rel="stylesheet" type="text/css" href="/member/publicStatic/h5ds/styles/effect/style.css"/>
+<link rel="stylesheet" type="text/css" href="/member/publicStatic/h5ds/styles/animations.css"/>
+<link rel="stylesheet" type="text/css" href="/member/publicStatic/h5ds/styles/animate.css"/>
+<script>
+if(window.navigator.userAgent.indexOf("Chrome") == -1 && window.navigator.userAgent.indexOf("Safari") == -1){
+	alert(window.navigator.userAgent);
+    // window.location.href="<%=basePath %>/app/notChrome"; //跳转到提示页面
+}
+</script>
+<script src="/member/publicStatic/h5ds/scripts/library/jquery-2.0.0.min.js"></script>
+<script src="/member/publicStatic/h5ds/scripts/library/ajaxfileupload.js"></script>
+<script src="/member/publicStatic/h5ds/scripts/library/jquery.lazyload.min.js"></script>
+<script src="/member/publicStatic/h5ds/scripts/library/jquery.cookie.min.js"></script>
+<!-- <script src="/member/publicStatic/h5ds/scripts/plugin.min.js"></script> -->
+<script src="/member/publicStatic/h5ds/scripts/plugin/plugin.js"></script>
+<script src="/member/publicStatic/h5ds/scripts/seajs/sea-debug.js" id="seajsnode"></script>
+<script>seajs.use("/member/publicStatic/h5ds/scripts/layout/init");</script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=CNqgUbTg5wE51iFTd5RnBc9z"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=CNqgUbTg5wE51iFTd5RnBc9z&services=&t=20151113040005"></script>
+</head>
+
+<body>
+
+<!--全局参数 debug 模式-->
+<input type="hidden" nginxWeb="http://localhost/member" formWeb="http://localhost/member" urlPath="http://localhost/member" id="coolAppAllData" data-userappid="558"/>
+<!--顶 区域-->
+<div class="top" id="top">
+<div class="t-box nav">
+    	<div class="title"><a class="logo"  href="/mod/build/findApps"></a></div>
+    </div>
+    <div class="t-box quick-nav">
+        <!-- <a href="javascript:void(0);" id="btnFullScreen"><i class="iconfont icon-quanping"></i> 全屏编辑</a> -->
+    	<!-- <a href="javascript:void(0);" id="helpCoolApp"><i class="iconfont icon-tubiao"></i> 帮助文档</a> -->
+
+        <a class="r-add-pic-button" id="addTextButton"><i class="fa fa-font"></i> 文本</a>
+        <!-- <a class="r-add-pic-button" id="addPicButton"><i class="fa fa-file-picture-o"></i> 图片</a> -->
+        <a class="r-add-pic-button" id="appset_image"><i class="fa fa-file-picture-o"></i> 图片</a>
+
+        <a class="r-add-pic-button" id="addSliderButton"><i class="fa fa-stack-overflow"></i>图集</a>
+
+        <!-- <a class="r-add-pic-button" id=""><i class="fa fa-list-ol"></i>表单</a> -->      
+        <!-- <a class="r-add-pic-button" id=""><i class="fa fa-suitcase"></i>红包</a> -->
+        <a href="javascript:void(0)" id="appset_cpage"><i class="iconfont icon-icon"></i>翻页</a>
+        <a href="javascript:void(0)" id="appset_music"><i class="iconfont icon-yinleline"></i>音乐</a>
+        <a class="r-add-pic-button" id="addEffectButton"><i class="fa fa-magic"></i>特效</a>
+        <a href="javascript:void(0);" id="getHistoryCoolApp"><i class="iconfont icon-lishi"></i> 历史</a>
+        
+<!--         <a href="javascript:void(0);" id="saveCoolApp" data-app="save"><i class="iconfont icon-iconfont90"></i> 保存项目</a>
+        <a href="javascript:void(0);" id="viewCoolApp"><i class="iconfont icon-bofang"></i> 预览项目</a>
+        <a href="javascript:void(0);" id="publishCoolApp" data-app="publish"><i class="iconfont icon-microsoft"></i> 发布项目</a> -->
+        <a href="javascript:void(0);" id="resources_btn" style="display:none"><i class="iconfont icon-iconziti42"></i> 素材</a>
+    </div>
+    
+    <div class="t-box nav drawer">
+    	<div class="drawerin">
+            <a href="javascript:void(0);" id="saveCoolApp" data-app="save">保存</a>
+            <a href="javascript:void(0);" id="viewCoolApp">预览</a>
+            <a href="javascript:void(0);" id="publishCoolApp" data-app="publish">发布</a>
+            <a href="<%=basePath %>/tuiguang/apps/getAppsListByBuildId" class="current">退出</a>
+        </div>
+   </div>
+
+</div>
+
+<!--左边 区域-->
+<div class="left" id="left">
+<a class="l-hide-button" id="hideLeftButton" data="hide">&lt;</a>
+<div class="new-page-add">
+    <a class="l-add-page-button" id="addMbPageButton"><i class="iconfont icon-tianjia"></i> 新增页面</a>
+</div>
+    <!--页面列表-->
+<div class="l-page-list" id="pageList">
+    	<ul id="pageListUl" ></ul>
+    </div>
+    
+    <!--新建页面按钮-->
+    <div class="new-page-add">
+    	<a class="l-add-page-button" id="clonePageButton"><i class="fa fa-copy"></i> 复制页面</a>
+    </div>
+    
+</div>
+
+<!--中间 区域-->
+<div class="center" id="center"> 
+
+<!--放大缩小-->
+<div class="max-min">
+    	<a id="seeMin"><i class="iconfont icon-suoxiao"></i></a>
+        <a id="seeMax"><i class="iconfont icon-fangda"></i></a>
+        <!-- <a id="seeDefault"><i class="iconfont icon-zhengchangxianshi"></i></a> -->
+        <a id="seeLine"><i class="iconfont icon-font49"></i></a>
+        <a id="seePlay" class="play"><i class="iconfont icon-16"></i></a>
+        <!-- <a id="historyData">操作记录</a> -->
+    </div>
+    
+    <!--快捷参数设置-->
+    <div class="app-set" id="appSet" style="display:none">
+    	<h2><span>参数设置</span> <i class="fa fa-minus" id="appSetHide"></i></h2>
+        <ul class="appSetUl">
+            <li><a href="javascript:void(0)" id="appset_info"><i class="iconfont icon-xinxi"></i>封面修改</a></li>
+            <li><a href="javascript:void(0)" id="appset_music"><i class="iconfont icon-yinleline"></i>添加音乐</a></li>
+            <li><a href="javascript:void(0)" id="appset_cpage"><i class="iconfont icon-icon"></i>翻页效果</a></li>
+            <li><a href="javascript:void(0)" id="appset_appbg"><i class="iconfont icon-beijingyanse"></i>整体背景</a></li>
+            <li><a href="javascript:void(0)" id="appset_clear"><i class="iconfont icon-hongpingbanzhuanhuan"></i>擦一擦</a></li>
+            <!-- <li><a href="javascript:void(0)" id="appset_clear"><i class="iconfont icon-zhiwen"></i>指纹解锁</a></li> -->
+        </ul>
+    </div>
+    
+    <!--可视编辑区域-->
+    <div class="c-phone" id="cPhone">
+    	
+        <!--背景-->
+        <div class="cphone-bg"></div>
+
+        <!--线框-->
+        <div class="select-box" id="selectBox">
+        	<a id="selectBoxRotate"><i class="fa fa-circle-o-notch"></i></a>
+        	<span class="se nth1"></span>
+            <span class="sw nth2"></span>
+            <span class="se nth3"></span>
+            <span class="sw nth4"></span>
+        </div>
+        
+        <!--警示 标线-->
+        <div class="line960 line-iphone6"><span>iPhone6可视区</span></div>
+        <div class="line960 line-iphone5"><span>iPhone5可视区</span></div>
+        <div class="line960 line-iphone4"><span>iPhone4可视区</span></div>
+        
+        <!--参考线-->
+<!--         <div class="lineGrid" id="lineGrid" style="display:none;">
+        	<span class="l1 ly"></span>
+            <span class="l2 ly"></span>
+            <span class="l3 ly"></span>
+            <span class="l4 lx"></span>
+            <span class="l5 lx"></span>
+            <span class="l6 lx"></span>
+            <span class="l7 lx"></span>
+            <span class="l8 lx"></span>
+            <span class="l9 lx"></span>
+        </div> -->
+        <div class="lineGrid" id="lineGrid" data-set="{x:15,y:9}" style="display:none;"></div>
+        
+        <!--音乐-->
+        <div class="soundbox" id="soundbox" data="off" style="display: block;">    
+            <em class="c1"></em>    
+            <em class="c2"></em>    
+            <div class="soundico"></div>    
+            <audio id="coolappSong" class="coolappSong" style="display:none; visibility:hidden;" src="" loop="loop"></audio>
+        </div>
+        
+        <!--编辑区域-->
+        <div id="cPhoneEdit"></div>  
+    </div>
+
+    <!--教程，客服，反馈-->
+    <div class="kefuAndFankui">
+        <a href="javascript:;"><i class="fa fa-toggle-right"></i> 教程</a>
+        <a href="javascript:;"><i class="fa fa-headphones"></i> 客服</a>
+        <a href="javascript:;"><i class="fa fa-send"></i> 反馈</a>
+    </div>
+</div>
+
+<!--右边 区域-->
+<div class="right" id="right">
+
+    <!--参数设置区域-->
+    <div class="r-data-set" id="dataSet">
+    
+    	<!--头部-->
+        <div class="rds-head" id="rdsHead">
+        	<a class="active" id="basic" href="javascript:void(0)">基础参数</a>
+            <a id="moreSet" href="javascript:void(0)">拓展参数</a>
+            <a id="animateSet" href="javascript:void(0)">设置动画</a>
+            <a id="functionSet" href="javascript:void(0)">高级功能</a>
+        </div>
+        
+        <!--参数区-->
+    	<div class="rds-body" id="rdsBody">
+        
+        	<!--每个页面的参数-->
+        	<div class="basic-all hidden basic_box" style="display:block">
+                <!--图，文字图层共有的参数-->
+                <div class="public-set border-bottom margin5 clearfix basicSet_box" id="basicSetBox" style="display:block;">
+                    <!--_basicSetBox-->
+                </div>
+                
+                <!--图片图层独有-->
+                <div class="public-pic basicSet_box_pic basicSet_box_other" id="basicSetBoxPic" style="display:none;">
+                    <!--_basicSetBoxPic-->
+                </div>
+                
+                <!--字体图层独有-->
+                <div class="public-word basicSet_box_text basicSet_box_other" id="basicSetBoxText" style="display:none;">
+                    <!--_basicSetBoxText-->
+                </div>
+                
+                <!--幻灯片图层独有-->
+                <div class="public-slider basicSet_box_slider basicSet_box_other" id="basicSetBoxSlider" style="display:none;">
+                    <!--_basicSetBoxSlider-->
+                </div>
+                
+                <!--iframe图层独有-->
+                <div class="public-slider basicSet_box_iframe basicSet_box_other" id="basicSetBoxIframe" style="display:none;"></div>
+                
+                <!--form图层独有-->
+                <div class="public-slider basicSet_box_form basicSet_box_other" id="basicSetBoxForm" style="display:none;"></div>
+
+                <!--特效层独有-->
+                <!-- <div class="public-effect basicSet_box_effect basicSet_box_other" id="basicSetBoxEffect" style="display:none;">
+                    <ul id="basicSetBoxEffectUl">
+                    	<li data="movestar"><i class="iconfont icon-stars"></i><span>流星雨</span></li>
+                        <li data="movecloud"><i class="iconfont icon-cloud"></i><span>飘云</span></li>
+                        <li data="downsnow"><i class="iconfont icon-xue"></i><span>下雪</span></li>
+                        <li data="flashstar"><i class="iconfont icon-shanshuo"></i><span>闪星星</span></li>
+                    </ul>
+                </div> -->
+                
+                <!--每个page 的背景-->
+                <div class="public-pic basicSet_box_background basicSet_box_other" id="pageBackground" style="display:none;">
+                    <!--_pageBackground-->
+                </div>
+            
+            </div><!--end basic-all -->
+            
+            <!--拓展参数-->
+            <div class="more-set hidden moreSet_box">
+            
+                <!--旋转角度-->
+                <div class="ms-pageSlider">
+                	<h5>旋转角度：</h5>
+                    <div class="s-slider" id="rotate_pageSlider" data="minData:-180,maxData:180">
+                        <div class="s-sliderBar">
+                            <em class="s-slider-bar"></em>
+                            <i class="s-ico-slider"></i>
+                        </div>
+                    </div>
+                    <input class="slider-input" type="text" value="0"/>
+                    <span class="unit">°</span>
+                </div>
+                
+                <!--圆角-->
+                <div class="ms-pageSlider">
+                	<h5>圆角：</h5>
+                    <div class="s-slider" id="radius_pageSlider" data="minData:0,maxData:1000">
+                        <div class="s-sliderBar">
+                            <em class="s-slider-bar"></em>
+                            <i class="s-ico-slider"></i>
+                        </div>
+                    </div>
+                    <input class="slider-input" type="text" value="100"/>
+                    <span class="unit">px</span>
+                </div>
+                
+                <!--透明度-->
+                <div class="ms-pageSlider">
+                	<h5>透明度：</h5>
+                    <div class="s-slider" id="opacity_pageSlider" data="minData:0,maxData:100">
+                        <div class="s-sliderBar">
+                            <em class="s-slider-bar"></em>
+                            <i class="s-ico-slider"></i>
+                        </div>
+                    </div>
+                    <input class="slider-input" type="text" value="100"/>
+                    <span class="unit">%</span>
+                </div>
+                
+                <!--模糊强度-->
+                <div class="ms-pageSlider">
+                	<h5>模糊强度：</h5>
+                    <div class="s-slider" id="fuzzy_pageSlider" data="minData:0,maxData:100">
+                        <div class="s-sliderBar">
+                            <em class="s-slider-bar"></em>
+                            <i class="s-ico-slider"></i>
+                        </div>
+                    </div>
+                    <input class="slider-input" type="text" value="100"/>
+                    <span class="unit">px</span>
+                </div>
+                
+                <!--模糊强度-->
+                <div class="ms-pageSlider">
+                	<h5>阴影设置：</h5>
+                    <div class="s-slider" id="sadow_pageSlider" data="minData:0,maxData:200">
+                        <div class="s-sliderBar">
+                            <em class="s-slider-bar"></em>
+                            <i class="s-ico-slider"></i>
+                        </div>
+                    </div>
+                    <input class="slider-input" type="text" value="100"/>
+                    <span class="unit">px</span>
+                </div>
+                
+                <div class="border-set-box">
+                	
+                	<h5>边框类型：</h5>
+                    <div class="s-select" id="borderType_select">
+                        <span placeholder="选择下拉" data="none" id="borderType_span">无边框</span>
+                        <i class="fa fa-sort-desc"></i>
+                        <ul>
+                            <li data="none">无边框</li>
+                            <li data="solid">—— 实线</li>
+                            <li data="dotted">......... 点线</li>
+                            <li data="dashed">- - -&nbsp; 虚线</li>
+                            <li data="double">=== 双线</li>
+                        </ul>
+                    </div> 
+                    <br/>
+                    <h5>边框大小：</h5>
+                    <div class="s-select" id="borderPx_select">
+                        <span placeholder="选择边框大小" data="1" id="borderPx_span">1px</span>
+                        <i class="fa fa-sort-desc"></i>
+                        <ul>
+                        	<li data="1">1px</li>
+                            <li data="2">2px</li>
+                            <li data="3">3px</li>
+                            <li data="4">4px</li>
+                            <li data="5">5px</li>
+                            <li data="6">6px</li>
+                            <li data="7">7px</li>
+                            <li data="8">8px</li>
+                            <li data="9">9px</li>
+                            <li data="10">10px</li>
+                        </ul>
+                    </div>   
+                    <input type="color" id="borderColor" list="borderColor_list" value="#000000"/>
+         	 <datalist id="borderColor_list">
+           	 <option>#FFFFFF</option>
+           	 <option>#9ACD32</option>
+           	 <option>#F5F5F5</option>
+           	 <option>#FFF0F5</option>
+           	 <option>#FFA07A</option>
+           	 <option>#FF69B4</option>
+           	 <option>#FF1493</option>
+           	 <option>#C71585</option>
+           	 <option>#DA70D6</option>
+           	 <option>#D8BFD8</option>
+           	 <option>#DDA0DD</option>
+           	 <option>#EE82EE</option>
+           	 <option>#FF00FF</option>
+           	 <option>#8B008B</option>
+           	 <option>#800080</option>
+           	 <option>#BA55D3</option>
+           	 <option>#9400D3</option>
+           	 <option>#9932CC</option>
+           	 <option>#4B0082</option>
+           	 <option>#8A2BE2</option>
+           	 </datalist>
+                </div>
+                
+            </div><!--end more-set-->
+            
+            <!--动画参数-->
+            <div class="animations hidden animateSet_box">
+<!-- 
+                <div class="click-add-animate" id="clickAddAnimate">
+                    <span data-state="autoplay" class="active"><i class="iconfont icon-shoucang btn"></i> 自动执行</span>
+                    <span data-state="clickplay"><i class="iconfont icon-dianji btn"></i> 点击执行</span>
+                </div> -->
+
+            	<!--动画参数设置-->
+                <div class="animate-set">
+
+                         <!--播放时间-->
+                        <div class="ms-pageSlider">
+                        	<h5>动画名称：</h5>
+                            
+                            <span class="animate-name">无动画</span>
+                            
+                            <h5>播放次数：</h5>
+                            <div class="s-select" id="playCount_select">
+                                <span placeholder="选择下拉" data="1" id="playCount_data">1</span>
+                                <i class="fa fa-sort-desc"></i>
+                                <ul>
+                                    <li data="1">1</li>
+                                    <li data="2">2</li>
+                                    <li data="3">3</li>
+                                    <li data="4">4</li>
+                                    <li data="5">5</li>
+                                    <li data="6">6</li>
+                                    <li data="7">7</li>
+                                    <li data="8">8</li>
+                                    <li data="9">9</li>
+                                    <li data="10">10</li>
+                                    <li data="infinite">循环</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!--播放时间-->
+                        <div class="ms-pageSlider">
+                            <h5>播放时间：</h5>
+                            <div class="s-slider" id="playTime_pageSlider" data="minData:0,maxData:20">
+                                <div class="s-sliderBar">
+                                    <em class="s-slider-bar"></em>
+                                    <i class="s-ico-slider"></i>
+                                </div>
+                            </div>
+                            <input class="slider-input" type="text" value="0"/>
+                            <span class="unit">s</span>
+                        </div>
+                        
+                        <!--延迟播放-->
+                        <div class="ms-pageSlider">
+                            <h5>延迟播放：</h5>
+                            <div class="s-slider" id="delayTime_pageSlider" data="minData:0,maxData:20">
+                                <div class="s-sliderBar">
+                                    <em class="s-slider-bar"></em>
+                                    <i class="s-ico-slider"></i>
+                                </div>
+                            </div>
+                            <input class="slider-input" type="text" value="0"/>
+                            <span class="unit">s</span>
+                        </div>
+                        
+                </div>
+                
+                <ul class="animate-nav" id="animatesNav">
+                    <li class="active" data="show">进入效果</li>
+                    <!--<li data="play">动画效果</li>-->
+                    <li data="hidde">离开效果</li>
+                    <li data="other">其他效果</li>
+                </ul>
+                 
+                <div id="animatesLists">
+   	 <!--进入动画-->
+                    <ul class="animates-ul clearfix" id="show_box"></ul>
+                    
+    	 <!--特效动画-->
+                    <!--<ul class="hidden animates-ul clearfix" id="play_box">
+                    	<li data="" name="无动画">无动画</li>
+                    </ul>-->
+    	
+                    <!--离开动画-->
+                    <ul class="hidden animates-ul clearfix" id="hidde_box"></ul>
+                    
+                    <!--其他动画-->
+                    <ul class="hidden animates-ul clearfix" id="other_box"></ul>
+                </div><!--end animatesLists-->
+                
+            </div><!--end animations-->
+
+            <div class="functions hidden functionSet_box">
+            	<div class="function-opened" style="display:none;">
+                    <div class="slideSwitch clearfix">
+                        <h5>是否启用高级功能？&nbsp;&nbsp;</h5>
+                        <div class="switch off" id="appset_function_switch">
+                            <em></em>
+                        </div>
+                    </div>
+                    <p>当前触发的事件：
+                    	<em class="name" id="function_name">超链接</em> 
+                        <a class="edit-function" id="edit_function_btn"><i class="fa fa-pencil"></i> 编辑</a>
+                    </p>
+                </div><!--end function-opened-->
+  
+                <ul class="function-list clearfix" id="function_list">
+                	<li id="function_add_url_btn">
+                    	<a href="javascript:void(0)" class="del" data-fun="url"><i class="iconfont icon-close"></i></a>
+                    	<i class="iconfont icon-80 btn"></i>
+                    	<p>超链接</p>
+                    </li>
+                    <li id="function_add_map_btn">
+                    	<a href="javascript:void(0)" class="del" data-fun="map"><i class="iconfont icon-close"></i></a>
+                    	<i class="iconfont icon-ditu btn"></i>
+                    	<p>地图</p>
+                    </li>
+                    <li id="function_add_call_btn">
+                    	<a href="javascript:void(0)" class="del" data-fun="call"><i class="iconfont icon-close"></i></a>
+                    	<i class="iconfont icon-bohaota btn"></i>
+                    	<p>一键拨号</p>
+                    </li>
+                    <li id="function_add_message_btn">
+                    	<a href="javascript:void(0)" class="del" data-fun="message"><i class="iconfont icon-close"></i></a>
+                    	<i class="iconfont icon-duanxinchongzhi1 btn"></i>
+                    	<p>发短信</p>
+                    </li>
+                    <li id="function_add_movie_btn">
+                    	<a href="javascript:void(0)" class="del" data-fun="movie"><i class="iconfont icon-close"></i></a>
+                    	<i class="iconfont icon-wodeshipin btn"></i>
+                    	<p>视频</p>
+                    </li>
+                    <li id="function_add_jumppage_btn">
+                    	<a href="javascript:void(0)" class="del" data-fun="jumppage"><i class="iconfont icon-close"></i></a>
+                    	<i class="iconfont icon-downarrowvector btn"></i>
+                        <p>页面跳转</p>
+                    </li>
+                </ul>
+            </div>
+            
+        </div><!--end rds-body-->
+        
+    </div>
+ 
+    <a class="cut-off-rule" id="cutOffRule"><i class="fa fa-sort"></i></a>
+    
+<!--图层列表-->
+<div class="r-pic-list" id="picList">
+    
+    	<ul id="picListUl" ></ul>
+        
+        <div class="layer-bg" id="layerBg">
+        	<div class="dragdiv">
+                <div class="eye"><i class="iconfont icon-liulanyanjing"></i></div>
+                <div class="info">
+                    <i class="fa fa-lock"></i>
+                    背景图层
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="r-add-piclist" style="display:none">
+    	<!--新建页面按钮-->
+        <ul>
+            <!-- <li><a class="r-add-pic-button" id="addPicButton"><i class="fa fa-file-picture-o"></i>图片</a></li> -->
+        	<li><a class="r-add-pic-button" id="appset_image"><i class="fa fa-file-picture-o"></i>图片</a></li>
+            <li><a class="r-add-pic-button" id="addTextButton"><i class="fa fa-font"></i>文本</a></li>
+            <li><a class="r-add-pic-button" id="addEffectButton"><i class="fa fa-magic"></i>特效</a></li>
+            <li><a class="r-add-pic-button" id="addSliderButton"><i class="fa fa-stack-overflow"></i>图集</a></li>
+            <li><a class="r-add-pic-button" id="addIframeButton"><i class="iconfont icon-xinjian"></i>iframe</a></li>
+            <li><a class="r-add-pic-button" id="addFormButton"><i class="iconfont icon-biaodan"></i>报名</a></li>
+            <li><a class="r-add-pic-button" id="copyLayerButton"><i class="fa fa-copy"></i>复制图层</a></li>
+        </ul>
+    </div>
+    
+</div>
+<!--素材库-->
+<div class="resources" id="resources">
+    <a href="javascript:void(0)" class="close"><i class="iconfont icon-close"></i></a>
+    
+    <div class="res-nav">
+        <ul id="resourcesUlNav"></ul>
+    </div>
+    
+    <div class="res-box" id="resourcesMe">
+        <div id="upResources"></div>
+        <div class="img_resources_box">
+            <ul class="clearfix imgResourcesBox"></ul>
+        </div>
+    </div>
+
+    <div class="resources-public img_resources_box" id="resourcesPublic">   
+    	<ul id="resourcesPublicBox" class="imgResourcesBox"></ul>   
+    </div>
+    
+</div>
+
+<!--模板页面-->
+<div class="resources" id="pageTemplate">
+    <a href="javascript:void(0)" class="close"><i class="iconfont icon-close"></i></a>
+    <div class="res-nav">
+    	<ul id="allMobanType"></ul>
+    </div>
+    <div class="res-box">
+    	<ul class="clearfix addNewPageBoxUl mymoban" id="addNewMymoban">
+    	 <li data-html="blank"><i class="fa fa-plus-square"></i><span>空白页面</span></li>
+    	</ul>
+        <ul class="clearfix addNewPageBoxUl othermoban" id="addNewOthermoban">
+        </ul>
+    </div>
+    
+</div>
+
+<!--设置弹窗-->
+
+<!--设置描述-->
+<div class="setWindowBox appset_info" id="appset_info_dialog">
+    <h1>设置基本信息</h1>
+    
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+    
+    <div class="grid-12 info">楼书标题</div>
+    <div class="grid-12"><input type="text" id="appset_name_val" value="APP名称"/></div>
+    
+    <div class="grid-12 info">楼书简介</div>
+    <div class="grid-12"><textarea id="appset_info_val">楼书简介</textarea></div>
+    
+    <div class="grid-6">    
+        <a id="changeAppMainImage" class="change-app-img"><i class="fa fa-refresh"></i> 更换主图</a> 
+        <div class="grid-12 info">使用微信分享APP的时候，主图会显示出来</div>
+    </div>
+    
+    <div class="grid-6">
+        <img class="main_img" id="appset_main_pic" src=""/>
+    </div>
+
+    <a href="javascript:void(0)" class="btn yes">确定</a>
+    <a href="javascript:void(0)" class="btn close">取消</a>
+
+</div>
+
+<!--添加音乐-->
+<!-- <div class="setWindowBox appset_music" id="appset_music_dialog">
+    <h1>选择音乐</h1>
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+     <div class="grid-12">
+    	<div class="slideSwitch clearfix">
+            <h5>背景音乐开关：</h5>
+            <div class="switch" id="appset_music_switch">
+                <em></em>
+            </div>
+        </div>
+        <div class="slideSwitch clearfix">
+        	<h5>可选音乐链接：</h5>
+	        <select class="select" id="select_appset_music_val" style="top:5px; position:relative;">
+	        	<option value="1111">音乐1</option>
+	        	<option value="2222">音乐2</option>
+	        	<option value="3333">音乐3</option>
+	        	<option value="4444">音乐4</option>
+	        	<option value="5555">音乐5</option>
+	        </select>
+        </div>
+    </div> 
+    <div class="grid-12"></div>
+    <div class="grid-12"><input placeholder="输入MP3格式的音乐连接" type="text" id="appset_music_val" readonly="true" /></div>
+    
+    <a href="javascript:void(0)" class="btn yes">确定</a>
+    <a href="javascript:void(0)" class="btn close">取消</a>
+</div> -->
+<!-- 添加音乐 -->
+<div class="dialog-mask" id="appset_music_dialog">
+    <div class="maskBox"></div>
+
+    <div class="setWindowBox setWindowBox-lg">
+        <h1>选择音乐</h1>
+        <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+
+        <div class="dialog-contain">
+            <div class="dialog-left">
+                <ul class="clearfix">
+                    <li class="current"><a href="javascript:void(0)">音乐库</a></li>
+                    <li class="myResource" data-resource="1" id="musicResource"><a href="javascript:void(0)">我的音乐</a></li>
+                </ul>
+
+                <div class="dialog-bottom">
+                    <div class="a-link">
+                        <a href="javascript:void(0)" id="addOutLinkMusicButton">添加外部链接</a>
+                    </div>
+                    <a href="javascript:void(0)" class="btn-upload" id="uploadMusicBtn"><i class="fa fa-cloud-upload"></i> 上传</a>
+                    <!-- 音乐／图片共用上传 -->
+                    <form action="#" enctype="multipart/form-data" method="post" class="hidden" id="uploadMusicForm">
+                        <input type="hidden" name="type" value="1">
+                        <input type="file" name="upload" multiple="multiple" id="uploadMusic" />
+                        <input type="submit" value="Upload file" />
+                    </form>
+                </div>
+            </div>
+            <div class="dialog-right tabCtrl">
+                <div class="has-choose"></div>
+                <div class="dialog-cate tab-ctrl">
+                    <a href="javascript:void(0)" data-index="1">动画</a>
+                    <a href="javascript:void(0)" data-index="2">企业</a>
+                    <a href="javascript:void(0)" data-index="3">节日</a>
+                    <a href="javascript:void(0)" data-index="4">风格</a>                    
+                </div>
+                
+                <div class="dialog-music tab-show">
+                    <ul class="clearfix hidden" data-dir="animate" data-index="1">
+                        <li data-url="1.mp3" data-index="1">范晓萱 - 小叮当.mp3 <span>728KB <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="2.mp3" data-index="2">宮村優子 - It's only the Fairy Tale.mp3 <span>573KB <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="3.mp3" data-index="3">BAAD - 君が好きだと叫びたい.mp3 <span>922KB <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="4.mp3" data-index="4">Cee Lo Green - Kung Fu Fighting.mp3 <span>598KB <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="5.mp3"data-index="5">FictionJunction - 暁の车.mp3 <span>1.2M <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="6.mp3" data-index="6">Jamie Foxx - Fly Love.mp3 <span>637KB <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="7.mp3" data-index="7">Michael Giacchino - Married Life.mp3 <span>1M <i class="fa fa-play-circle-o"></i></span></li>
+                    </ul>
+
+                    <ul class="clearfix hidden" data-dir="company" data-index="2">
+                        <li data-url="1.mp3" data-index="1">群星 - 小桥流水-古筝／琵琶.mp3 <span>1.7M <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="2.mp3" data-index="2">DJ SLY - いのちの名前 ~ジブリ・メドレー~.mp3 <span>1.1M <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="3.mp3" data-index="3">S.E.N.S. - Flying.mp3 <span>1.1M <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="4.mp3" data-index="4">Thomas Bergersen - Empire of Angels.mp3 <span>1.3M <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="5.mp3" data-index="5">X-Ray Dog - Heartbeat of Man.mp3 <span>260KB <i class="fa fa-play-circle-o"></i></span></li>
+                    </ul>
+
+                    <ul class="clearfix hidden" data-dir="festival" data-index="3">
+                        <li data-url="1.mp3" data-index="1">贝多芬 - G大调小步舞曲.mp3 <span>724KB <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="2.mp3" data-index="2">黑鸭子 - 雪绒花.mp3 <span>719KB <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="3.mp3" data-index="3">Fabian Buch - Merry, Merry Christmas.mp3 <span>884KB <i class="fa fa-play-circle-o"></i></span></li>
+                    </ul>
+
+                    <ul class="clearfix hidden" data-dir="style" data-index="4">
+                        <li data-url="1.mp3" data-index="1">贝多芬 - 悲怆奏鸣曲.mp3 <span>1.3M <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="2.mp3" data-index="2">贝多芬 - 月光奏鸣曲.mp3 <span>1.7M <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="3.mp3" data-index="3">雅尼 - 河西走廊之梦.mp3 <span>1.2M <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="4.mp3" data-index="4">雅尼 - Nightingale.mp3 <span>1.4M <i class="fa fa-play-circle-o"></i></span></li>
+                        <li data-url="5.mp3" data-index="5">Cello Suite No.1 in G major I Prelude.mp3 <span>598KB <i class="fa fa-play-circle-o"></i></span></li>
+                    </ul>
+
+                    <audio id="tryPlayMusic" src="" data-src="http://static.yjsvip.com/static/loushu/music/">
+                </div>
+
+                <div class="dialog-music my-resource hidden" id="myMusic">
+                    <div class="no-music hidden">暂时没有，你可以通过右下角上传或添加外链新增到我的音乐</div>
+                    <ul class="clearfix">
+                        
+                    </ul>
+                </div>
+
+                <div class="dialog-bottom">
+                    
+                </div> 
+            </div>
+        </div> 
+
+        <a href="javascript:void(0)" class="btn yes">确定</a>
+        <a href="javascript:void(0)" class="btn close">取消</a>
+    </div>
+</div>
+<!-- 添加外部链接 -->
+<div class="dialog-mask" id="outLinkMusic_dialog">
+    <div class="maskBox"></div>
+
+    <div class="setWindowBox">
+        <h1>添加音乐外部链接</h1>
+        <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+        <div class="grid-12"><input placeholder="请输入外部音乐链接地址" type="text" id="appset_music_val"/></div>
+        
+        <a href="javascript:void(0)" class="btn yes">确定</a>
+        <a href="javascript:void(0)" class="btn close">取消</a>
+    </div>
+</div>
+
+<!-- 添加图集 -->
+<div class="dialog-mask" id="flash_dialog">
+    <div class="maskBox"></div>
+
+    <div class="setWindowBox">
+        <h1>添加图集</h1>
+        <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+        
+        <div class="flash-content">
+            <div class="flash-add" id="flashAddBtn">
+                <i>点击添加图片</i>
+                <p>（最多添加6张）</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 拉伸图集 -->
+<div class="dialog-mask" id="flash_submit_dialog">
+    <div class="maskBox"></div>
+
+    <div class="setWindowBox setWindowBox-lg">
+        <h1>添加图集</h1>
+        <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+        
+        <div class="flash-submit clearfix">
+            <div class="flash-content" id="flashCtrlShow">
+                
+            </div>
+            <div class="flash-ctrl">
+                <div class="flash-resize">
+                    <p><input type="radio" name="resize" value='{"w":1,"h":1}' checked="checked"> 1:1</p>
+                    <p><input type="radio" name="resize" value='{"w":4,"h":3}'> 4:3</p>
+                    <p><input type="radio" name="resize" value='{"w":3,"h":4}'> 3:4</p>
+                    <p><input type="radio" name="resize" value='{"w":2,"h":1}'> 1/2屏比例</p>
+                    <p><input type="radio" name="resize" value='{"w":3,"h":1}'> 1/3屏比例</p>
+                </div>
+                <div class="flash-resize">
+                    <p>自动切换 <a href="javascript:void(0);"><i class="fa fa-toggle-on"></i></a></p>
+                    <p id="flashCtrlTimer">切换时间：<span>3</span>s</p>
+                    <div class="flash-slide">
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+
+        <div class="flash-bottom" id="flashCtrl">
+            <ul class="clearfix">
+            </ul>
+        </div>
+
+        <a href="javascript:void(0)" class="btn yes">确定</a>
+        <a href="javascript:void(0)" class="btn close">取消</a>
+    </div>
+</div>
+
+<!-- 添加图片 -->
+<div class="dialog-mask" id="appset_image_dialog">
+    <div class="maskBox"></div>
+
+    <div class="setWindowBox setWindowBox-lg">
+        <h1>选择图片</h1>
+        <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+
+        <div class="dialog-contain">
+            <div class="dialog-left">
+                <ul class="clearfix">
+                    <li class="current"><a href="javascript:void(0)">图片库</a></li>
+                    <li class="myResource" data-resource="2" id="imageResource"><a href="javascript:void(0)">我的图片</a></li>
+                </ul>
+
+                <div class="dialog-bottom">
+                    <a href="javascript:void(0)" class="btn-upload" id="uploadImageBtn"><i class="fa fa-cloud-upload"></i> 上传</a>
+                </div>
+            </div>
+            <div class="dialog-right tabCtrl">
+                <div class="has-choose"></div>
+                <div class="dialog-cate tab-ctrl">
+                    <a href="javascript:void(0)" data-index="1">动画</a>
+                    <a href="javascript:void(0)" data-index="2">企业</a>
+                    <a href="javascript:void(0)" data-index="3">节日</a>
+                    <a href="javascript:void(0)" data-index="4">风格</a>                    
+                    <a href="javascript:void(0)" data-index="5">行业</a>                    
+                </div>
+                
+                <div class="img_resources_box tab-show">
+                    <ul class="imgResourcesBox clearfix hidden">
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/animate/1.jpg"> <span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/animate/2.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/animate/3.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/animate/4.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/animate/5.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/animate/6.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/animate/7.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                    </ul>
+
+                    <ul class="imgResourcesBox clearfix hidden" data-dir="company" data-index="2">
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/company/2.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/company/3.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/company/4.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/company/5.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/company/6.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/company/7.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/company/8.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/company/9.png"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/company/10.png"><span><i class="fa fa-check-circle"></i></span></li>
+                    </ul>
+
+                    <ul class="imgResourcesBox clearfix hidden" data-dir="festival" data-index="3">
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/festival/1.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/festival/2.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/festival/3.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/festival/4.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/festival/5.png"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/festival/6.png"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/festival/7.png"><span><i class="fa fa-check-circle"></i></span></li>
+                        
+                    </ul>
+
+                    <ul class="imgResourcesBox clearfix hidden" data-dir="style" data-index="4">
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/style/1.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/style/2.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/style/3.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/style/4.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/style/5.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/style/6.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/style/7.png"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/style/8.png"><span><i class="fa fa-check-circle"></i></span></li>
+                    </ul>
+
+                    <ul class="imgResourcesBox clearfix hidden" data-dir="trade" data-index="5">
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/trade/1.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/trade/2.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/trade/3.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/trade/4.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/trade/5.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/trade/6.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/trade/7.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/trade/8.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                        <li><img data-src="http://static.yjsvip.com/static/loushu/image/trade/9.jpg"><span><i class="fa fa-check-circle"></i></span></li>
+                    </ul>
+                </div>
+
+                <div class="img_resources_box my-resource hidden" id="myImage">
+                    <div class="no-music hidden">暂时没有，你可以通过右下角上传或添加外链新增到我的图片</div>
+                    <ul class="imgResourcesBox clearfix">
+                        
+                    </ul>
+                </div>
+
+                <div class="dialog-bottom">
+                    
+                </div> 
+            </div>
+        </div> 
+
+        <a href="javascript:void(0)" class="btn yes">确定</a>
+        <a href="javascript:void(0)" class="btn close">取消</a>
+    </div>
+</div>
+
+<!--添加超链接-->
+<div class="setWindowBox" id="function_add_url_dialog">
+    <h1>添加超链接</h1>
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+    <div class="grid-12"><span>链接地址： </span><input type="text" id="function_add_url_val" placeholder="请输入超链接地址"/></div>
+    
+    <a href="javascript:void(0)" class="btn yes">确定</a>
+    <a href="javascript:void(0)" class="btn close">取消</a>
+</div>
+
+<!--添加 一键拨号-->
+<div class="setWindowBox" id="function_add_call_dialog">
+    <h1>添加一键拨号</h1>
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+    <div class="grid-12"><span>拨号号码：</span><input type="text" id="function_add_call_val" placeholder="请填写一键拨号的号码"/></div>
+    
+    <a href="javascript:void(0)" class="btn yes">确定</a>
+    <a href="javascript:void(0)" class="btn close">取消</a>
+</div>
+
+<!--添加 一键发短信-->
+<div class="setWindowBox" id="function_add_message_dialog">
+    <h1>添加一键发短信</h1>
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+    <div class="grid-12"><span>发短信号码：</span><input type="text" id="function_add_message_val" value="" placeholder="请填写一键发短信的号码"/></div>
+    
+    <a href="javascript:void(0)" class="btn yes">确定</a>
+    <a href="javascript:void(0)" class="btn close">取消</a>
+</div>
+
+<!--添加 一键发短信-->
+<div class="setWindowBox" id="function_add_movie_dialog">
+    <h1>添加视频</h1>
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+    <div class="grid-12"><span>链接地址：</span><input type="text" id="function_add_movie_val" placeholder="请输入视频地址"/></div>
+    <div class="grid-12 info">请填写视频地址，土豆，优酷的视频地址</div>
+    
+    <a href="javascript:void(0)" class="btn yes">确定</a>
+    <a href="javascript:void(0)" class="btn close">取消</a>
+</div>
+
+<!--添加 地图功能-->
+<div class="setWindowBox" id="function_add_map_dialog">
+    <h1>添加地图</h1>
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+    <div class="grid-12"><input type="text" placeholder="请填写要搜索的地址" id="function_add_map_val" value=""/><a class="btn" id="searchMap">搜索</a></div>
+    <div class="grid-12 info">搜索到地址后，请点击地图，标注地址。</div>
+    <div id="function_set_map">
+    	
+    </div> 
+    <a href="javascript:void(0)" class="btn yes">确定</a>
+    <a href="javascript:void(0)" class="btn close">取消</a>
+</div>
+
+<!--添加 添加跳转地址-->
+<div class="setWindowBox" id="function_add_jumppage_dialog">
+    <h1>添加跳转地址</h1>
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+    <input type="hidden" id="function_add_jumppage_val" value="jumpToPage(1,this)"/>
+    <div class="grid-12 clearfix" id="function_add_jumppage_ul">
+    	
+    </div>
+    <div class="grid-12 info">请选择要跳转的页面编号</div>
+    
+    <a href="javascript:void(0)" class="btn yes">确定</a>
+    <a href="javascript:void(0)" class="btn close">取消</a>
+</div>
+
+<!--历史记录 getHistory_dialog-->
+<div class="setWindowBox" id="getHistory_dialog">
+    <h1>历史记录</h1>
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+    <div class="grid-12">
+    	<ul id="getHistory_dialog_ul"></ul>
+    </div>
+    <div class="grid-12 info">选择历史记录，可以还原到之前的历史</div>
+</div>
+
+<!--添加特效 addEffect_dialog-->
+<div class="setWindowBox" id="addEffect_dialog">
+    <h1>添加特效</h1>
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+    <div class="public-effect basicSet_box_effect clearfix" id="basicSetBoxEffect">
+        <ul id="basicSetBoxEffectUl">
+            <li data="movestar"><i class="iconfont icon-stars"></i><span>流星雨</span></li>
+            <li data="movecloud"><i class="iconfont icon-cloud"></i><span>飘云</span></li>
+            <li data="downsnow"><i class="iconfont icon-xue"></i><span>下雪</span></li>
+            <li data="flashstar"><i class="iconfont icon-shanshuo"></i><span>闪星星</span></li>
+        </ul>
+    </div>
+    <a href="javascript:void(0)" class="btn yes">确认</a>
+    <a href="javascript:void(0)" class="btn close">取消</a>
+</div>
+
+<!--换页效果-->
+<div class="setWindowBox appset_cpage" id="appset_cpage_dialog">
+    <h1>设置APP换页效果</h1>
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+    
+    <div class="grid-12 cpagelist" id="appset_cpage_ul">
+    	<h2>上下滑动切换</h2>
+    	<ul>
+    	 <li class="active" data-slider="updown" data-value="1">平滑滑动</li>
+    	 <li data-slider="updown" data-value="2">叠层切换</li>
+    	 <li data-slider="updown" data-value="4">弹出切换</li>
+    	 <li data-slider="updown" data-value="9">3D盒子</li>
+    	 <li data-slider="updown" data-value="3">旋转风车</li>
+    	</ul>
+    	
+    	<h2>左右滑动切换</h2>
+    	<ul>
+    	 <li data-slider="leftright" data-value="5">平滑滑动</li>
+    	 <li data-slider="leftright" data-value="6">叠层切换</li>
+    	 <li data-slider="leftright" data-value="7">弹出切换</li>
+    	 <li data-slider="leftright" data-value="8">3D盒子</li>
+    	 <li data-slider="leftright" data-value="3">旋转风车</li>
+    	</ul>
+
+    </div>
+    <a href="javascript:void(0)" class="btn yes">确定</a>
+    <a href="javascript:void(0)" class="btn close">取消</a>
+    <!-- <div class="grid-12 h40"></div> -->
+    
+</div>
+
+<!--整体背景-->
+<div class="setWindowBox appset_appbg" id="appset_appbg_dialog">
+    <h1>设置APP画布的背景</h1>
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+    <div class="grid-12">
+    
+    	<div class="grid-6">
+            <div class="page-background-set">
+                <h5>底色：</h5>
+                <input type="color" id="cpageBackgroundColor" list="cpageBackgroundColor_list" value="#FFFFFF"/>
+                <datalist id="cpageBackgroundColor_list">
+                    <option>#FFFFFF</option>
+                    <option>#000000</option>
+                    <option>#ffe600</option>
+                    <option>#bff800</option>
+                    <option>#7ff201</option>
+                    <option>#40f200</option>
+                    <option>#18f218</option>
+                    <option>#03ce65</option>
+                    <option>#00a3a2</option>
+                    <option>#0469df</option>
+                    <option>#2540ff</option>
+                    <option>#4d25ff</option>
+                    <option>#7a14f3</option>
+                    <option>#be0dbf</option>
+                    <option>#f10d58</option>
+                    <option>#ff330e</option>
+                    <option>#ff6b01</option>
+                    <option>#ffb202</option>
+                    <option>#00c0ff</option>
+                    <option>#1ba1cd</option>
+                </datalist>
+                 &nbsp;
+                <a id="clear_cpageBackgroundColor">清除</a>
+            </div><!--end page-background-set-->
+        </div>
+        
+        <div class="grid-6">
+            <div class="page-background-set">
+                <h5>背景模式：</h5>
+                <select class="select" style="width:70px;" id="cpageBackgroundRepeat">
+                    <option value="repeat">平铺</option>
+                    <option value="repeat-x">延X轴平铺</option>
+                    <option value="repeat-y">延Y轴平铺</option>
+                    <option value="no-repeat">不重复</option>
+                </select>
+            </div>
+        </div>
+        
+    	<div class="button">    
+        	<a id="changeCpageBackgroundImage" class="btn"><i class="fa fa-refresh"></i> 更换图片</a>    
+            <a id="changeCpageBackgroundImageClear" class="btn"><i class="fa fa-trash"></i> 移除图片</a>
+        </div>
+        <div class="grid-12 tcenter" style="background:#eee; height:200px; overflow:hidden;">
+        	<img class="app-bg" id="cpageBackgroundImage" src=""/>
+        </div>
+    </div>
+    
+    <div class="grid-12 info">每个APP画布，只能有一个背景！</div>
+
+    <a href="javascript:void(0)" class="btn yes">确定</a>
+    <a href="javascript:void(0)" class="btn close">取消</a>
+</div>
+
+<!--擦一擦动画-->
+<div class="setWindowBox appset_clear" id="appset_clear_dialog">
+    <h1>设置APP擦一擦的效果</h1>
+    <a href="javascript:void(0)" class="close closebtn"><i class="iconfont icon-close"></i></a>
+    <div class="grid-12">
+    	<div class="slideSwitch clearfix">
+            <h5>擦一擦开关：</h5>
+            <div class="switch off" id="appset_clear_switch">
+                <em></em>
+            </div>
+        </div>
+    </div>
+    <div class="grid-12">
+    	<div class="button">    
+        	<a id="changeCayicaImage" class="btn"><i class="fa fa-refresh"></i> 更换图片</a>    
+            <a id="changeCayicaImageClear" class="btn"><i class="fa fa-trash"></i> 移除图片</a>
+        </div>
+        <div class="grid-12 tcenter" style="background:#FFF; height:200px; overflow:hidden;">
+        	<img class="app-bg" id="cayicaImage" src=""/>
+        </div>
+    </div>
+    <div class="grid-12 info">第一次进入后，会有个擦一擦的效果！</div>
+
+    <a href="javascript:void(0)" class="btn yes">确定</a>
+    <a href="javascript:void(0)" class="btn close">取消</a>
+</div>
+
+<!--提示框-->
+<div id="infoBox">保存中...</div>
+
+<!--预览APP-->
+<div class="previewApp" id="previewApp">
+<a href="javascript:;" class="close">关闭</a>
+    <iframe id="previewAppIframe" width="100%" height="100%" frameborder="0" scrolling="none" src="app.html"></iframe>
+</div>
+
+<!--蒙版-->
+<div id="fixedBox"></div>
+
+<!--帮助-->
+<div id="helpCoolApp_html">
+<div class="helps help1"></div>
+    <div class="helps help2"></div>
+    <div class="helps help3"></div>
+    <div class="helps help4"></div>
+    <div class="helps help5"></div>
+    <div class="helps help6"></div>
+</div>
+
+<!--鼠标右键-->
+<!--页面列表-->
+<div id="mouse-right-btn-pagelist" class="mouse-right-btn">
+	<ul>
+		<li id="mrbp-prev">上移一层</li>
+		<li id="mrbp-next">下移一层</li>
+		<li id="mrbp-del">删除</li>
+		<li id="mrbp-copy">复制</li>
+        <li id="mrbp-rename">重命名</li>
+		<li id="mrbp-saveMoban">存为模板</li>
+	</ul>
+</div>
+
+<!--图层列表-->
+<div id="mouse-right-btn-layer" class="mouse-right-btn">
+	<ul>
+		<li id="mrbl-top">置顶</li>
+		<li id="mrbl-bottom">置底</li>
+		<li id="mrbl-prev">上移一层</li>
+		<li id="mrbl-next">下移一层</li>
+		<li id="mrbl-del">删除</li>
+		<li id="mrbl-copy">复制</li>
+		<li id="mrbl-rename">重命名</li>
+	</ul>
+</div>
+
+<!--音乐控制-->
+<div id="mouse-right-btn-music" class="mouse-right-btn">
+    <ul>
+        <li id="mrbm-change"><i class="fa fa-refresh"></i> 更换</li>
+        <li id="mrbm-del"><i class="fa fa-trash"></i> 删除</li>
+    </ul>
+</div>
+
+<!--历史操作记录-->
+<div class="history-box clearfix" id="historyRecords"></div>
+
+<!--返回数据-->
+<div id="returnData" style="display:none">
+
+</div>
+
+</body>
+
+<script th:inline="javascript">
+/*<![CDATA[>*/
+$(function(){
+    var mark = true;
+    var $btnFullScreen = $("#btnFullScreen");
+    $btnFullScreen.on("click",function(){     
+        var elem = document.documentElement;      
+        requestFullScreen(elem);     
+    });
+
+    //全屏显示
+    function requestFullScreen(element) {
+        //打开全屏
+        if (mark) {
+            element.webkitRequestFullScreen();
+            $btnFullScreen.html('<i class="iconfont icon-quanping"></i> 全屏编辑');
+            mark=false;
+        }else{
+            document.webkitCancelFullScreen();
+            $btnFullScreen.html('<i class="iconfont icon-quanping"></i> 关闭全屏');
+            mark=true;
+        }
+    }    
+});
+/*]]>*/   
+</script>
+</html>

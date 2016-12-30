@@ -1,0 +1,24 @@
+/*Á÷ÐÇÓêÐ§¹û*/
+.m-meteorShower{width:100%;height:100%; position: absolute;}
+.m-meteorShower .star{display:block;position:absolute;width:46px;height:46px;background:url(/mtsee/app/public/effect/movestar/meteor.png);-webkit-animation:star 1s linear infinite}
+.m-meteorShower .star.style1{width:20px;height:20px;background-position:0 -137px}
+.m-meteorShower .star.style2{width:43px;height:43px;background-position:-20px -137px}
+.m-meteorShower .star.style3{width:42px;height:42px;background-position:-63px -137px}
+.m-meteorShower .star.style4{width:50px;height:50px;background-position:-105px -137px}
+.m-meteorShower .meteor{display:block;position:absolute;width:255px;height:50px;background:url(/mtsee/app/public/effect/movestar/meteor.png);-webkit-animation:meteor 1s linear infinite}
+.m-meteorShower .meteor.style1{width:100px;height:20px;background-position:0 0}
+.m-meteorShower .meteor.style2{width:150px;height:29px;background-position:0 -20px}
+.m-meteorShower .meteor.style3{width:200px;height:39px;background-position:0 -49px}
+.m-meteorShower .meteor.style4{width:256px;height:50px;background-position:0 -88px}
+
+@-webkit-keyframes star{
+	0%{opacity:0;-webkit-transform:scale(0.5)}
+	60%{opacity:1;-webkit-transform:scale(1)}
+	100%{opacity:0;-webkit-transform:scale(0.5)}
+}
+@-webkit-keyframes meteor{
+	0%{opacity:0;-webkit-transform:rotate(40deg) translateX(0px) scale(0.2)}
+	20%{opacity:.7}
+	80%{opacity:1}
+	100%{opacity:0;-webkit-transform:rotate(40deg) translateX(500px) scale(1)}
+}
