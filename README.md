@@ -7,12 +7,14 @@ freeH5,open source html5,open source h5,免费html5制作工具,freeH5 APP,h5营
 
 ![](http://images2015.cnblogs.com/blog/381372/201612/381372-20161230150435476-1934342615.png)
 
-# 3. 运行环境
+# 3. [演示地址](http://react-native.cn/)
+
+# 4. 运行环境
 
  - 后端 nodejs+mysql
  - 前端 seajs 
 
-# 4. 交流
+# 5. 交流
 
 交流QQ：**417038972**
 
