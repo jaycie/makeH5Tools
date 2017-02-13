@@ -7,7 +7,7 @@ freeH5,open source html5,open source h5,免费html5制作工具,freeH5 APP,h5营
 
 ![](http://images2015.cnblogs.com/blog/381372/201612/381372-20161230150435476-1934342615.png)
 
-# 3. [演示地址](http://react-native.cn/)
+# 3. [演示地址](http://www.freeh5.com/loushus/index?tplId=1)
 
 # 4. 运行环境
 
